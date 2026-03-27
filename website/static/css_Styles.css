@@ -1,160 +1,406 @@
-html, body {      /*footer sticks to bottom of viewport*/
-   height: 100%;
+/* ========================================
+   GRUNDLAYOUT: Sticky-Footer mit CSS Grid
+   ======================================== */
+
+/* 
+ * html/body müssen volle Viewport-Höhe haben, damit das Grid funktioniert
+ * margin/padding: 0 verhindert unerwünschte Abstände durch Browser-Defaults
+ */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
+/* 
+ * Body wird zum Grid-Container für Sticky-Footer-Layout:
+ * - 1fr = verbleibender Platz (streckt sich auf volle Viewport-Höhe)
+ * - auto = natürliche Höhe des Footers 
+ * min-height: 100vh sorgt dafür, dass Footer immer am Viewport-Bottom klebt
+ */
 body {
   display: grid;
-  margin: 0 auto; /* Center the content */
-  gap: 20px; /* spacing between body children */
+  grid-template-rows: 1fr auto;  /* Hauptinhalt (main) + Footer */
+  min-height: 100vh;             /* Mindesthöhe = voller Bildschirm */
   width: 100%;
-  background-color: rgb(79, 21, 134);
-  margin: 0;
+  background-color: rgb(79, 21, 134);  /* Dein violettes Design */
+  margin: 0 auto;
   font-family: Arial, sans-serif;
-  grid-template-rows: 1fr auto; /*footer sticks to bottom of viewport*/
-    }
+  gap: 20px;  /* Abstand zwischen main und footer */
+}
 
-    .button_special {
-      display: flex;
-      width: fit-content;
-      background-color: darkgreen;
-      border-color: rgb(79, 21, 134);
-      color: rgb(7, 7, 7);
+/* ========================================
+   FIXE RECHTE NAVBAR - IMMER FIXED
+   ======================================== */
+
+/* 
+ * Navbar ist komplett aus dem normalen Dokumentfluss (fixed positioning)
+ * z-index: 1000 stellt sicher, dass sie über allem anderen liegt
+ * height: 100vh = volle Viewport-Höhe (nicht document height!)
+ */
+.navbar {
+  position: fixed;     /* IMMER fixiert rechts - auch auf Mobile */
+  top: 0;
+  right: 0;
+  height: 100vh;       /* Volle Bildschirmhöhe */
+  width: 15%;          /* 15% der Viewport-Breite */
+  background-color: darkgreen;
+  display: flex;
+  flex-direction: column;  /* Vertikales Layout der Nav-Items */
+  padding-top: 0;
+  z-index: 1000;       /* Über allem anderen Content */
+}
+
+/* 
+ * Bild in der Navbar: object-fit: cover schneidet bei falschem Aspect-Ratio
+ * ohne Verzerrung
+ */
+.navbar img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;   /* Bild füllt Container ohne Verzerrung */
+}
+
+/* Nav-Links-Container innerhalb der Navbar */
+.navbar-nav {
+  display: flex;
+  flex-direction: column;  /* Alle Links untereinander */
+}
+
+/* Einzelne Nav-Links Styling */
+.navbar a {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: left;
+  width: 100%;         /* Nutzt volle Navbar-Breite */
+  transition: background-color 0.3s;  /* Smooth Hover-Effekt */
+}
+
+/* Hover-Effekt für Nav-Links */
+.navbar a:hover {
+  background-color: goldenrod;  /* Deine Designfarbe */
+}
+
+/* ========================================
+   HAUPTINHALT (main) - ANPASSUNG AN NAVBAR
+   ======================================== */
+
+/* 
+ * main ist die erste Grid-Zeile (1fr) und bekommt Padding rechts,
+ * damit nichts unter der fixen Navbar verschwindet
+ */
+main {
+  padding-right: 15%;     /* Exakt die Navbar-Breite als Platzhalter */
+  padding-left: 10px;
+  padding-top: 20px;      /* Abstand vom Viewport-Top (wegen Navbar) */
+}
+
+/* ========================================
+   FOOTER (zweite Grid-Zeile: auto)
+   ======================================== */
+
+/* 
+ * Footer landet automatisch in der zweiten Grid-Zeile (auto)
+ * margin-right verhindert Überlappung mit Navbar bei langen Texten
+ */
+footer {
+  display: flex;
+  width: 100%;
+  background-color: rgb(0, 0, 0);
+  color: forestgreen;
+  padding: 10px;
+  margin-right: 15%;     /* Auch Footer nicht unter Navbar */
+  justify-content: center; /* Text zentriert */
+}
+
+/* ========================================
+   BUTTONS & ALERTS (deine Animationen)
+   ======================================== */
+
+.button_special {
+  /* Dein spezieller Button mit fit-content Breite */
+  display: flex;
+  width: fit-content;
+  background-color: darkgreen;
+  border-color: rgb(79, 21, 134);
+  color: rgb(7, 7, 7);
+  padding: 10px 20px;
+  border: 2px solid;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.alert_button_error {
+  /* Roter pulsierender Alert-Button */
+  width: fit-content;
+  height: fit-content;
+  animation: fade 4s infinite;  /* Deine Fade-Animation */
+  background-color: rgb(106, 0, 0);
+  color: rgb(255, 255, 255);
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+}
+
+.alert_button_success {
+  /* Grüner pulsierender Success-Button */
+  width: fit-content;
+  height: fit-content;
+  animation: fade 4s infinite;
+  background-color: darkgreen;
+  color: rgb(255, 255, 255);
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+}
+
+.button_click {
+  /* Goldenrod Button-Variante */
+  border-color: rgb(79, 21, 134);
+  background-color: goldenrod;
+  color: darkgreen;
+  padding: 10px 20px;
+  border: 2px solid;
+  cursor: pointer;
+}
+
+/* ========================================
+   ANIMIERUNG (dein Fade-Effekt)
+   ======================================== */
+
+@keyframes fade {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }    /* Kurz "ausblenden" */
+  100% { opacity: 1; }
+}
+
+/* ========================================
+   CONTAINER (Flask/Jinja Blocks)
+   ======================================== */
+
+.container {
+  max-width: 100%;  /* Verhindert horizontales Scrollen */
+}
+
+.container1 {
+  margin-bottom: 20px;  /* Abstand zum Footer */
+}
+
+/* ========================================
+   TYPOGRAFIE & TEXT
+   ======================================== */
+
+h1 {
+  /* Dein goldenes h1 mit Hintergrund */
+  display: block;
+  width: 100%;
+  color: darkgreen;
+  font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+  background-color: goldenrod;
+  padding: 10px;
+  margin: 0 0 20px 0;
+}
+
+h2 {
+  /* Dunkelgrüne h2 mit Einzug */
+  color: darkgreen;
+  font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+  margin-left: 20px;
+}
+
+h3 {
+  /* Goldene h3 */
+  color: goldenrod;
+}
+
+p {
+  /* Dein spezielles p-Styling */
+  color: rgba(0, 7, 0, 0.877);
+  font-family: Impact, 'Arial Narrow Bold', sans-serif;
+  font-size: x-large;
+  margin-left: 15px;
+  width: auto;  /* display: flex entfernt für bessere Lesbarkeit */
+}
+
+pre {
+  /* Code-Blöcke mit goldenem Text */
+  color: goldenrod;
+  font-style: italic;
+  margin-left: 20px;
+  background-color: rgba(0,0,0,0.3);
+  padding: 10px;
+}
+
+blockquote {
+  /* Zitat-Styling */
+  color: aliceblue;
+  font-style: italic;
+  padding: 20px;
+  background-color: rgba(0,0,0,0.3);
+  margin: 20px;
+}
+
+li {
+  /* Weiße Listeneinträge */
+  color: rgb(255, 255, 255);
+}
+
+/* ========================================
+   BILD- & TEXT-REIHEN (deine .picture_row / .text_row)
+   ======================================== */
+
+.picture_row {
+  /* Horizontale Bildergalerie */
+  width: 85%;
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;        /* Abstand zwischen Bildern */
+  margin: 20px 0;
+}
+
+.picture_row img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover; /* Verhindert Verzerrung */
+  border-radius: 5px;
+}
+
+.text_row {
+  /* Horizontale Textreihe (Zeitachse) */
+  width: 85%;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;   /* Auf kleinen Bildschirmen umbrechen */
+}
+
+.text_row p {
+  margin-left: 0;    /* Override normales p-margin */
+  flex: 1;
+  min-width: 120px;  /* Mindestbreite pro Eintrag */
+}
+
+/* ========================================
+   FLOATING BOX (fixiert unten rechts)
+   ======================================== */
+
+.box {
+  position: fixed;
+  bottom: 20px;
+  right: 120px;      /* Rechts von der Navbar */
+  transform: translateX(-50%);
+  background-color: rgba(3, 2, 0, 0.8);
+  color: white;
+  text-align: center;
+  line-height: 50px;
+  font-size: 20px;
+  border-radius: 10px;
+  animation: fade 4s infinite;
+  padding: 10px 20px;
+  z-index: 999;
+}
+
+/* ========================================
+   FORMULARE
+   ======================================== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin-bottom: 15px;
+  align-self: flex-end;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN - NAVBAR BLEIBT FIX
+   ======================================== */
+
+/* 
+ * Bei Bildschirmbreiten < 768px (Tablets/Mobile):
+ * - Navbar bleibt FIXED, wird aber schmaler (80px)
+ * - Content-Padding passt sich an
+ */
+@media (max-width: 768px) {
+  .navbar {
+    width: 80px;        /* Schmaler aber immer noch fix */
+  }
   
-    }
-    .alert_button_error {
-      width: fit-content;
-      height: fit-content;
-      animation: fade 4s infinite;
-      background-color: rgb(106, 0, 0);
-      color: rgb(255, 255, 255);
-    }
+  main {
+    padding-right: 80px; /* Angepasstes Padding für schmale Navbar */
+  }
+  
+  footer {
+    margin-right: 80px;  /* Footer passt sich an */
+  }
+  
+  .picture_row {
+    flex-direction: column; /* Bilder untereinander */
+    height: auto;
+  }
+  
+  .text_row {
+    flex-direction: column; /* Texte untereinander */
+  }
+}
 
-     .alert_button_success {
-      width: fit-content;
-      height: fit-content;
-      animation: fade 4s infinite;
-      background-color: darkgreen;
-      color: rgb(255, 255, 255);
-    }
-    .button_click {
-      border-color: rgb(79, 21, 134);
-      background-color: goldenrod;
-      color: darkgreen;
-    }
+/* ========================================
+   ZEITACHSEN-KARTEN (Text + Bild untereinander)
+   ======================================== */
 
-     h1 {
-      display: flex;
-      width: 100;
-      color: darkgreen;
-      font-family: 'Franklin Gothic Medium';
-      background-color: goldenrod;
-      padding: 10px;
-     }
-    
-    h2 {
-      color: darkgreen;
-      font-family: 'Franklin Gothic Medium', sans-serif;
-      margin-left: 20px;
-    }
+/* Container für alle Timeline-Items (horizontal) */
+.timeline {
+  width: 85%;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 40px 0;
+}
 
-    p {
-      display: flex;
-      width: 50%;
-      color: rgba(0, 7, 0, 0.877);
-      font-family: Impact, 'Arial Narrow Bold', sans-serif;
-      font-size: x-large;
-      margin-left: 15px;
-    }
+/* Einzelne Karte: Text OBEREN + Bild UNTEN */
+.timeline-item {
+  display: flex;
+  flex-direction: column;  /* Text oben, Bild unten */
+  align-items: center;     /* Zentriert */
+  width: 120px;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
 
-    pre {
-      color: goldenrod;
-      font-style: italic;
-      margin-left: 20px;
-    }
+.timeline-item p {
+  margin: 0 0 10px 0;     /* Abstand zum Bild */
+  font-weight: bold;
+  color: goldenrod;       /* Hervorhebung */
+  text-align: center;
+  font-size: large;
+}
 
-     blockquote {
-      display: flex;
-      width: 50%;
-      align-items: end;
-      color: aliceblue;
-      font-style: initial;
-    }
+.timeline-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid goldenrod;
+}
 
-      .navbar {
-      position: fixed;
-      top: 0;
-      right: 0;
-      height: 100%;
-      width: 15%;
-      background-color: darkgreen;
-      display: flex;
-      flex-direction: column;
-    
-      padding-top: 0px;
-    }
+/* ========================================
+   EXAMPLE BOX (dein Tagebuch-Beispiel)
+   ======================================== */
 
-    .navbar a {
-      display: flex;
-      flex-direction: column;
-      text-decoration: none;
-      color: white;
-      padding: 10px 15px;
-      text-align: left;
-      width: 100%;
-      transition: background-color 0.3s;
-    }
+.example {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  border-left: 5px solid goldenrod;
+}
 
-    .navbar a:hover {
-      align-self: flex-start;
-      display: flex;
-      flex-direction: column;
-      background-color: goldenrod;
-      width: 100%;
-    }
-    
-
-    .box {
-      position: fixed;
-      flex-direction: column;
-      bottom: 20px;              
-      right: 120px;                 
-      transform: translateX(-50%); 
-      background-color: rgba(3, 2, 0, 0);
-      text-align: center;
-      line-height: 100px;
-      font-size: 20px;
-      border-radius: 0%;
-      animation: fade 4s infinite;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-            }
-
-      @keyframes fade {
-      0% { opacity: 1; }
-      50% { opacity: 0.3; }
-      100% { opacity: 1; }
-        }
-    
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      width: fit-content;
-      margin-bottom: 15px;
-      align-self: flex-end;
-    }
-      
-    footer {
-      display: flex;
-      width: 100%;
-      background-color: rgb(0, 0, 0);
-      color: forestgreen;
- }
-
- 
-
-
-    li {
-      color: rgb(255, 255, 255);
-    }
     

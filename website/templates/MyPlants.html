@@ -1,17 +1,69 @@
-{% extends "base.html" %} {% block title %}Welcome{% endblock %}
+{% extends "base.html" %}
+{% block title %}Welcome{% endblock %}
 
-    {% block content %}
+{% block content %}
 <h1>Willkommen bei My Plants</h1>
 
 <h2>Schön, dass du da bist!</h2>
- <img src= "{{ url_for('static', filename='IMG_20250920_132149.jpg') }}" alt="Disconchita Kush" width="50%" height="480" title="I am Disconchita Kush"
-    >
-     <p>
-      <sub>Auf dieser Seite <br> kannst du  dir <br> dein Weed-Tagebuch erstellen.</sub>
-    </p>
-    <hr>
+<img src="{{ url_for('static', filename='IMG_20250920_132149.jpg') }}" 
+     alt="Disconchita Kush" 
+     width="50%" 
+     height="480" 
+     title="I am Disconchita Kush">
 
-<p1> Ich zeig dir erstmal wie ein Beispiel des Tagebuchs aussehen könnte:</p1>
+<p>
+  <sub>Auf dieser Seite <br> kannst du dir <br> dein Weed-Tagebuch erstellen.</sub>
+</p>
+<hr>
 
-    {% endblock %}
-    
+<h3>Ich zeig dir erstmal wie ein Beispiel des Tagebuchs aussehen könnte:</h3>
+
+<div class="example">
+  <h2>Mein Weed-Tagebuch</h2>
+  <ul>
+    <li><strong>Datum:</strong> 20.09.2025</li>
+    <li><strong>Sorte:</strong> Disconchita Kush</li>
+    <li><strong>Wachstumsphase:</strong> Blüte</li>
+    <li><strong>Notizen:</strong> Die Pflanze entwickelt schöne Blüten und riecht fantastisch!</li>
+  </ul>
+</div>
+
+<!-- ZEITACHSEN-KARTEN: Text + Bild untereinander -->
+<div class="timeline">
+  <div class="timeline-item">
+    <p>Tag 1: Keimung</p>
+    <img src="{{ url_for('static', filename='IMG_20250920_132149.jpg') }}" alt="Keimung">
+  </div>
+  
+  <div class="timeline-item">
+    <p>Tag 15: Vegetative Phase</p>
+    <img src="{{ url_for('static', filename='IMG_20250920_132149.jpg') }}" alt="Vegetative Phase">
+  </div>
+  
+  <div class="timeline-item">
+    <p>Tag 30: Blüte</p>
+    <img src="{{ url_for('static', filename='IMG_20250920_132149.jpg') }}" alt="Blüte">
+  </div>
+  
+  <div class="timeline-item">
+    <p>Tag 45: Ernte</p>
+    <img src="{{ url_for('static', filename='IMG_20250920_132149.jpg') }}" alt="Ernte">
+  </div>
+  
+  <div class="timeline-item">
+    <p>Tag 60: Trocknung</p>
+    <img src="{{ url_for('static', filename='IMG_20250920_132149.jpg') }}" alt="Trocknung">
+  </div>
+  
+  <div class="timeline-item">
+    <p>Tag 75: Aushärtung</p>
+    <img src="{{ url_for('static', filename='IMG_20250920_132149.jpg') }}" alt="Aushärtung">
+  </div>
+  
+  <div class="timeline-item">
+    <p>Tag 90: Genuss</p>
+    <img src="{{ url_for('static', filename='IMG_20250920_132149.jpg') }}" alt="Genuss">
+  </div>
+</div>
+
+{% endblock %}
