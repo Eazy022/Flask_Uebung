@@ -23,7 +23,7 @@ body {
   grid-template-rows: 1fr auto;  /* Hauptinhalt (main) + Footer */
   min-height: 100vh;             /* Mindesthöhe = voller Bildschirm */
   width: 100%;
-  background-color: rgb(79, 21, 134);  /* Dein violettes Design */
+  background-color: rgb(79, 21, 134);  
   margin: 0 auto;
   font-family: Arial, sans-serif;
   gap: 20px;  /* Abstand zwischen main und footer */
@@ -121,7 +121,7 @@ footer {
    ======================================== */
 
 .button_special {
-  /* Dein spezieller Button mit fit-content Breite */
+  /* Spezieller Button mit fit-content Breite */
   display: flex;
   width: fit-content;
   background-color: darkgreen;
@@ -137,7 +137,7 @@ footer {
   /* Roter pulsierender Alert-Button */
   width: fit-content;
   height: fit-content;
-  animation: fade 4s infinite;  /* Deine Fade-Animation */
+  animation: fade 4s infinite;  /*  Fade-Animation */
   background-color: rgb(106, 0, 0);
   color: rgb(255, 255, 255);
   padding: 10px 15px;
@@ -168,7 +168,7 @@ footer {
 }
 
 /* ========================================
-   ANIMIERUNG (dein Fade-Effekt)
+   ANIMIERUNG (Fade-Effekt)
    ======================================== */
 
 @keyframes fade {
@@ -194,7 +194,7 @@ footer {
    ======================================== */
 
 h1 {
-  /* Dein goldenes h1 mit Hintergrund */
+  /* Dunkelgrüner h1 mit goldenem Hintergrund */
   display: block;
   width: 100%;
   color: darkgreen;
@@ -217,7 +217,7 @@ h3 {
 }
 
 p {
-  /* Dein spezielles p-Styling */
+  /*  p-Styling */
   color: rgba(0, 7, 0, 0.877);
   font-family: Impact, 'Arial Narrow Bold', sans-serif;
   font-size: x-large;
@@ -248,41 +248,7 @@ li {
   color: rgb(255, 255, 255);
 }
 
-/* ========================================
-   BILD- & TEXT-REIHEN (deine .picture_row / .text_row)
-   ======================================== */
 
-.picture_row {
-  /* Horizontale Bildergalerie */
-  width: 85%;
-  height: 200px;
-  display: flex;
-  flex-direction: row;
-  gap: 10px;        /* Abstand zwischen Bildern */
-  margin: 20px 0;
-}
-
-.picture_row img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover; /* Verhindert Verzerrung */
-  border-radius: 5px;
-}
-
-.text_row {
-  /* Horizontale Textreihe (Zeitachse) */
-  width: 85%;
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  flex-wrap: wrap;   /* Auf kleinen Bildschirmen umbrechen */
-}
-
-.text_row p {
-  margin-left: 0;    /* Override normales p-margin */
-  flex: 1;
-  min-width: 120px;  /* Mindestbreite pro Eintrag */
-}
 
 /* ========================================
    FLOATING BOX (fixiert unten rechts)
@@ -338,14 +304,7 @@ li {
     margin-right: 80px;  /* Footer passt sich an */
   }
   
-  .picture_row {
-    flex-direction: column; /* Bilder untereinander */
-    height: auto;
-  }
   
-  .text_row {
-    flex-direction: column; /* Texte untereinander */
-  }
 }
 
 /* ========================================
